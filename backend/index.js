@@ -1,18 +1,17 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
+require("dotenv").config();
 const bodyParser = require('body-parser');
 const bcrypt = require('bcrypt');
-require("dot-env").config();
-
 const app = express();
 const port = 5000;
 
-app.use(cors("https://myportfolio-backend-theta.vercel.app/"));
+app.use(cors('https://myportfolio-backend-theta.vercel.app/'));
 app.use(bodyParser.json());
 
-// Connect to MongoDB
-mongoose.connect('mongodb+srv://manikandan05082003:Manicdon07%40@cluster0.scriurb.mongodb.net/portfolioDB', {
+const dburi = process.env.dbURI;
+mongoose.connect(dburi, {
   useNewUrlParser: true,
   useUnifiedTopology: true
 });
