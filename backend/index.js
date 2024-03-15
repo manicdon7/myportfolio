@@ -8,7 +8,7 @@ require("dot-env").config();
 const app = express();
 const port = 5000;
 
-app.use(cors());
+app.use(cors("https://myportfolio-backend-theta.vercel.app/"));
 app.use(bodyParser.json());
 
 // Connect to MongoDB
