@@ -7,7 +7,7 @@ const bcrypt = require('bcrypt');
 const app = express();
 const port = 5000;
 
-app.use(cors('https://manikandan05.vercel.app/'));
+app.use(cors('https://myportfolio-backend-theta.vercel.app/'));
 app.use(bodyParser.json());
 
 const dburi = process.env.dbURI;
@@ -92,7 +92,7 @@ const projectSchema = new mongoose.Schema({
         imageUrl,
         deployment
       });
-
+      
       await project.save();
       res.status(201).send('Project uploaded successfully.');
     } catch (error) {
