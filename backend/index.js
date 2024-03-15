@@ -29,7 +29,6 @@ const certificateSchema = new mongoose.Schema({
 const Certificate = mongoose.model('Certificate', certificateSchema);
 
 
-// Define a schema for the project model
 const projectSchema = new mongoose.Schema({
     title: String,
     description: String,
@@ -93,7 +92,7 @@ const projectSchema = new mongoose.Schema({
         imageUrl,
         deployment
       });
-      // Save the project to the database
+      
       await project.save();
       res.status(201).send('Project uploaded successfully.');
     } catch (error) {
