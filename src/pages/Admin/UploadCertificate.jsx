@@ -39,7 +39,7 @@ const UploadCertificate = () => {
             setImageUrl(url);
 
             // Send data to backend
-            await fetch('http://localhost:5000/uploadCertificate', {
+            await fetch('https://myportfolio-backend-theta.vercel.app/uploadCertificate', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

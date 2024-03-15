@@ -3,13 +3,12 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 const bodyParser = require('body-parser');
 const bcrypt = require('bcrypt');
+require("dot-env").config();
 
 const app = express();
 const port = 5000;
 
-// Allow requests from all origins
 app.use(cors());
-// Parse incoming request bodies in JSON format
 app.use(bodyParser.json());
 
 // Connect to MongoDB

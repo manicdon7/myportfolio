@@ -9,7 +9,7 @@ const Projects = () => {
 
     useEffect(() => {
         // Fetch project data from backend API
-        fetch('http://localhost:5000/projects')
+        fetch('https://myportfolio-backend-theta.vercel.app/projects')
             .then(response => response.json())
             .then(data => setProjects(data))
             .catch(error => console.error('Error fetching projects:', error));
