@@ -8,7 +8,6 @@ const Projects = () => {
     const [projects, setProjects] = useState([]);
 
     useEffect(() => {
-        // Fetch project data from backend API
         fetch('https://myportfolio-backend-theta.vercel.app/projects')
             .then(response => response.json())
             .then(data => setProjects(data))
