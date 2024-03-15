@@ -12,7 +12,7 @@ const Certificates = () => {
 
   const fetchCertificates = async () => {
     try {
-      const response = await fetch('https://myportfolio-backend-theta.vercel.app/certificates');
+      const response = await fetch('https://manikandan05-backend-beta.vercel.app/certificates');
       if (!response.ok) {
         throw new Error('Failed to fetch certificates');
       }
