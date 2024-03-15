@@ -7,7 +7,11 @@ const bcrypt = require('bcrypt');
 const app = express();
 const port = 5000;
 
-app.use(cors('https://manikandan05.vercel.app'));
+const corsOptions = {
+  origin: 'https://manikandan05.vercel.app',
+};
+
+app.use(cors(corsOptions));
 app.use(bodyParser.json());
 
 const dburi = process.env.dbURI;
