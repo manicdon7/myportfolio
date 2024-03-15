@@ -1,0 +1,147 @@
+const express = require('express');
+const mongoose = require('mongoose');
+const cors = require('cors');
+const bodyParser = require('body-parser');
+const bcrypt = require('bcrypt');
+
+const app = express();
+const port = 5000;
+
+// Allow requests from all origins
+app.use(cors());
+// Parse incoming request bodies in JSON format
+app.use(bodyParser.json());
+
+// Connect to MongoDB
+mongoose.connect('mongodb+srv://manikandan05082003:Manicdon07%40@cluster0.scriurb.mongodb.net/portfolioDB', {
+  useNewUrlParser: true,
+  useUnifiedTopology: true
+});
+const db = mongoose.connection;
+db.on('error', console.error.bind(console, 'MongoDB connection error:'));
+db.once('open', () => {
+  console.log('Connected to MongoDB database');
+});
+
+const certificateSchema = new mongoose.Schema({
+  title: String,
+  description: String,
+  imageUrl: String
+});
+const Certificate = mongoose.model('Certificate', certificateSchema);
+
+
+// Define a schema for the project model
+const projectSchema = new mongoose.Schema({
+    title: String,
+    description: String,
+    githubLink: String,
+    imageUrl: String,
+    deployment: String,
+  });
+  const Project = mongoose.model('Project', projectSchema);
+
+  const userSchema = new mongoose.Schema({
+    admin: String,
+    password: String
+  });
+  const User = mongoose.model('User', userSchema);
+
+  app.post('/api/register', async (req, res) => {
+    const { admin, password } = req.body;
+  
+    try {
+      const hashedPassword = await bcrypt.hash(password, 10);
+      const newUser = new User({
+        admin,
+        password: hashedPassword
+      });
+      await newUser.save();
+      res.status(201).json({ message: 'User registered successfully' });
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ message: 'Server error' });
+    }
+  });
+  
+  app.post('/api/login', async (req, res) => {
+    const { admin, password } = req.body;
+  
+    try {
+      const user = await User.findOne({ admin });
+      if (!user) {
+        return res.status(404).json({ message: 'User not found' });
+      }
+  
+      const isPasswordValid = bcrypt.compare(password, user.password);
+      if (!isPasswordValid) {
+        return res.status(401).json({ message: 'Invalid password' });
+      }
+  
+      res.status(200).json({ message: 'Login successful' });
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ message: 'Server error' });
+    }
+  });
+  
+  app.post('/upload', async (req, res) => {
+    try {
+      const { title, description, githubLink, imageUrl,deployment } = req.body;
+      const project = new Project({
+        title,
+        description,
+        githubLink,
+        imageUrl,
+        deployment
+      });
+      // Save the project to the database
+      await project.save();
+      res.status(201).send('Project uploaded successfully.');
+    } catch (error) {
+      console.error('Error uploading project:', error);
+      res.status(500).send('Internal server error.');
+    }
+  });
+
+  
+app.get('/projects', async (req, res) => {
+    try {
+      const projects = await Project.find();
+      res.json(projects);
+    } catch (error) {
+      console.error('Error fetching projects:', error);
+      res.status(500).send('Internal server error.');
+    }
+  });
+
+app.post('/uploadCertificate', async (req, res) => {
+    try {
+      const { title, description, imageUrl } = req.body;
+      const certificate = new Certificate({
+        title,
+        description,
+        imageUrl,
+      });
+      await certificate.save();
+      res.status(201).send('Certificate uploaded successfully.');
+    } catch (error) {
+      console.error('Error uploading certificate:', error);
+      res.status(500).send('Internal server error.');
+    }
+  });
+
+app.get('/certificates', async (req, res) => {
+    try {
+      const certificates = await Certificate.find();
+      res.json(certificates);
+    } catch (error) {
+      console.error('Error fetching certificates:', error);
+      res.status(500).send('Internal server error.');
+    }
+  });
+
+// Start the server
+app.listen(port, () => {
+  console.log(`Server is running on http://localhost:${port}`);
+});
