@@ -45,7 +45,7 @@ const userSchema = new mongoose.Schema({
 const User = mongoose.model('User', userSchema);
 
 app.get("/", async (req, res) => {
-  res.json({ message: "Welcome to the Events API!" })
+  res.json({ message: "Welcome to the Events API!" });
 })
 app.post('/api/register', async (req, res) => {
   const { admin, password } = req.body;
