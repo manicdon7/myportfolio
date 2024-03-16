@@ -47,7 +47,7 @@ const UploadProject = () => {
       const imageUrl = await getDownloadURL(storageRef);
       console.log("Image uploaded successfully. URL:", imageUrl);
 
-      const response = await fetch('https://manikandan05-backend.vercel.app/upload', {
+      const response = await fetch('https://manikandan05-backend.vercel.app/api/upload', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'

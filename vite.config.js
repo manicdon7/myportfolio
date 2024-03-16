@@ -5,7 +5,7 @@ export default defineConfig({
   plugins: [react()],
   server: {
     proxy: {
-      '/': 'https://manikandan05-backend.vercel.app/',
+      '/api': 'https://manikandan05-backend.vercel.app/',
       secure: false,
     },
   },

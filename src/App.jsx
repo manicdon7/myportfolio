@@ -7,7 +7,6 @@ import Admin from './pages/Admin/Admin';
 import Auth from './pages/Admin/Auth';
 import Certificates from './pages/Certificates/Certificates';
 
-
 function App() {
 
   const isLoggedIn = window.localStorage.getItem('authenticated')

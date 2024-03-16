@@ -39,7 +39,7 @@ const UploadCertificate = () => {
             setImageUrl(url);
 
             // Send data to backend
-            await fetch('https://manikandan05-backend.vercel.app/uploadCertificate', {
+            await fetch('https://manikandan05-backend.vercel.app/api/uploadCertificate', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

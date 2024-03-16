@@ -85,7 +85,7 @@ app.post('/api/login', async (req, res) => {
   }
 });
 
-app.post('/upload', async (req, res) => {
+app.post('/api/upload', async (req, res) => {
   try {
     const { title, description, githubLink, imageUrl, deployment } = req.body;
     const project = new Project({
@@ -105,7 +105,7 @@ app.post('/upload', async (req, res) => {
 });
 
 
-app.get('/projects', async (req, res) => {
+app.get('/api/projects', async (req, res) => {
   try {
     const projects = await Project.find();
     res.json(projects);
@@ -115,7 +115,7 @@ app.get('/projects', async (req, res) => {
   }
 });
 
-app.post('/uploadCertificate', async (req, res) => {
+app.post('/api/uploadCertificate', async (req, res) => {
   try {
     const { title, description, imageUrl } = req.body;
     const certificate = new Certificate({
@@ -131,7 +131,7 @@ app.post('/uploadCertificate', async (req, res) => {
   }
 });
 
-app.get('/certificates', async (req, res) => {
+app.get('/api/certificates', async (req, res) => {
   try {
     const certificates = await Certificate.find();
     res.json(certificates);
