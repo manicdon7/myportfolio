@@ -21,6 +21,10 @@ db.once('open', () => {
   console.log('Connected to MongoDB database');
 });
 
+app.get("/", async (req, res) => {
+  res.json({ message: "API's are working!" });
+})
+
 const certificateSchema = new mongoose.Schema({
   title: String,
   description: String,
@@ -44,9 +48,7 @@ const userSchema = new mongoose.Schema({
 });
 const User = mongoose.model('User', userSchema);
 
-app.get("/", async (req, res) => {
-  res.json({ message: "Welcome to the Events API!" });
-})
+
 app.post('/api/register', async (req, res) => {
   const { admin, password } = req.body;
 
