@@ -5,12 +5,12 @@ export default defineConfig({
   plugins: [react()],
   server: {
     proxy: {
-      '/api': 'https://manikandan05-backend.vercel.app/',
-      secure: false,
+      '/api': {
+        target: 'https://manikandan05-backend.vercel.app/',
+        changeOrigin: true,
+        secure: false,
+        rewrite: (path) => path.replace(/^\/api/, '')
+      },
     },
   },
-  // build: {
-  //   outDir: './build',
-  //   emptyOutDir: false,
-  // }
 })
