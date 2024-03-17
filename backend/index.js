@@ -20,9 +20,6 @@ db.once('open', () => {
   console.log('Connected to MongoDB database');
 });
 
-app.get("/", async (req, res) => {
-  res.json({ message: "API's are working!" });
-})
 
 const certificateSchema = new mongoose.Schema({
   title: String,
@@ -47,10 +44,12 @@ const userSchema = new mongoose.Schema({
 });
 const User = mongoose.model('User', userSchema);
 
+app.get("/", async (req, res) => {
+  res.json({ message: "API's are working!" });
+})
 
 app.post('/api/register', async (req, res) => {
   const { admin, password } = req.body;
-
   try {
     const hashedPassword = await bcrypt.hash(password, 10);
     const newUser = new User({
@@ -105,7 +104,6 @@ app.post('/api/upload', async (req, res) => {
   }
 });
 
-
 app.get('/api/projects', async (req, res) => {
   try {
     const projects = await Project.find();
@@ -142,7 +140,6 @@ app.get('/api/certificates', async (req, res) => {
   }
 });
 
-// Start the server
 app.listen(port, () => {
   console.log(`Server is running on http://localhost:${port}`);
 });
